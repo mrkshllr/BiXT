@@ -1,8 +1,8 @@
 # BiXT - Perceiving Longer Sequences With Bi-Directional Cross-Attention Transformers 
-Official PyTorch implementation of the paper **Perceiving Longer Sequences With Bi-Directional Cross-Attention Transformers**.
+Official PyTorch implementation of the paper **Perceiving Longer Sequences With Bi-Directional Cross-Attention Transformers** (NeurIPS 2024).
 
-:mortar_board: :page_facing_up: Find our paper: [[arXiv]](https://arxiv.org/pdf/2402.12138) &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp; 
-:bookmark: Reference: [[BibTeX]](https://github.com/mrkshllr/BiXT#citing-bixt)
+:mortar_board: :page_facing_up: Find our paper: [[arXiv]](https://arxiv.org/pdf/2402.12138) &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp;  
+:clipboard: Reference: [[BibTeX]](https://github.com/mrkshllr/BiXT#citing-bixt)
 
 ## Note :pencil: 
 - :hourglass_flowing_sand: **Code and trained models coming soon...** :hourglass_flowing_sand: :computer:
@@ -24,10 +24,9 @@ If you find this repository useful, please consider giving us a star :star: and 
 @inproceedings{
 hiller2024bixt,
 title={Perceiving Longer Sequences With Bi-Directional Cross-Attention Transformers},
-author={Markus Hiller and Rongkai Ma and Mehrtash Harandi and Tom Drummond},
+author={Markus Hiller and Krista A. Ehinger and Tom Drummond},
 booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
 year={2024},
-url={https://openreview.net/forum?id=p_g2nHlMus}
 }
 ```
 If you have any questions regarding our work, please feel free to reach out!
