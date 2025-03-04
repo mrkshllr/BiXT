@@ -34,3 +34,6 @@ If you find this repository useful, please consider giving us a star :star: and 
 }
 ```
 If you have any questions regarding our work, please feel free to reach out!
+
+---
+For alternative implementations, also check out [lucidrains' version](https://github.com/lucidrains/bidirectional-cross-attention) (also in PyTorch) and [axrwl's project](https://github.com/axrwl/bidirectional-cross-attention) for a JAX variant.
