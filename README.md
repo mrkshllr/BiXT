@@ -1,12 +1,14 @@
 # BiXT - Perceiving Longer Sequences With Bi-Directional Cross-Attention Transformers 
 Official PyTorch implementation of the paper **Perceiving Longer Sequences With Bi-Directional Cross-Attention Transformers** (NeurIPS 2024).
 
-:mortar_board: :page_facing_up: Find our paper: [[arXiv]](https://arxiv.org/pdf/2402.12138) &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp; :mailbox_with_mail: Reference: [[BibTeX]](https://github.com/mrkshllr/BiXT#citing-bixt)
+:mortar_board: :page_facing_up: Find our paper: [[arXiv]](https://arxiv.org/pdf/2402.12138) &nbsp; [[NeurIPS]](https://proceedings.neurips.cc/paper_files/paper/2024/hash/ab1ee157f7804a13f980414b644a9460-Abstract-Conference.html) &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp; :milky_way: :chart_with_upwards_trend: [[Poster]](.github/Hiller_Poster_BiXT_NeurIPS2024_s.png) &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp; :mailbox_with_mail: Reference: [[BibTeX]](https://github.com/mrkshllr/BiXT#citing-bixt)
 
 ## Note :pencil: 
-- :hourglass_flowing_sand: **Code and trained models coming soon...** :hourglass_flowing_sand: :computer:
+- :hourglass_flowing_sand: **Trained models coming VERY soon!** :hourglass_flowing_sand: :computer:
 
 ## Updates :tada:
+- March 04, 2025: *Cleaned-up* **Model, Training and Evaluation code now available** (for ImageNet) :star2: :computer:
+- December 13, 2024: **BiXT presented at NeurIPS 2024 in Vancouver, Canada** :mount_fuji: :snowflake:
 - September 26, 2024: **BiXT is accepted at NeurIPS 2024!** :fire: 
 
 ## TL;DR :eyes:
@@ -25,6 +27,8 @@ If you find this repository useful, please consider giving us a star :star: and 
     title={Perceiving Longer Sequences With Bi-Directional Cross-Attention Transformers},
     author={Markus Hiller and Krista A. Ehinger and Tom Drummond},
     booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
+    pages = {94097--94129},
+    volume = {37},
     year={2024},
 }
 ```
