@@ -5,6 +5,7 @@ Official PyTorch implementation of the paper **Perceiving Longer Sequences With 
 
 ## Note :pencil: 
 - :hourglass_flowing_sand: **Preliminary** code release -- Detailed ***'How To'*** coming soon! :point_left: :eyes:
+- :arrow_right: BiXT architecture implemented [here!](timm/models/bixt.py) :bookmark: :point_left:
 - :hourglass_flowing_sand: **Trained models coming VERY soon!** :hourglass_flowing_sand: :computer:
 
 ## Updates :tada:
