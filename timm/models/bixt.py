@@ -147,8 +147,6 @@ class CrossAttention(nn.Module):
         r_pat, v_pat = rv_pat.unbind(0)
         # attention: (q@k.T), and will be multiplied with the value associated with the keys k
         attn = (r_lat @ r_pat.transpose(-2, -1)) * self.scale  # query from latent, key from patches
-        # => do we need to clone or not? -> if we clone, computational graph is cut, so NO, we want grads from both
-        # attn_T = attn.clone().transpose(-2, -1)
         attn_T = attn.transpose(-2, -1)  # bidirectional attention, associated with the values from the query q
 
         attn = attn.softmax(dim=-1)  # softmax along patch token dimension
