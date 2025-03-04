@@ -197,8 +197,6 @@ def get_args_parser():
                        help='Exclude warmup period from decay schedule.'),
     group.add_argument('--cooldown_epochs', type=int, default=0, metavar='N',
                        help='epochs to cooldown LR at min_lr, after cyclic schedule ends')
-    # group.add_argument('--decay_rate', type=float, default=0.1, metavar='RATE',
-    #                    help='LR decay rate (default: 0.1)')
 
     # Augmentation & regularization parameters
     group = parser.add_argument_group('Augmentation and regularization parameters')
@@ -211,11 +209,9 @@ def get_args_parser():
                         help="Deactivate three augment method from DeiT-III paper -- Mutually exclusive with the auto-"
                              "augment method from timm! Note that this ignores all aa params like flip, etc.")
     group.set_defaults(three_augment=True)
+    # ## Two more augmentations used in DeiT, but not used in our experiments:
     parser.add_argument('--sr_crop', action='store_true', default=False,
                         help="Applies the 'simple random crop' introduced in the DeiT-III paper")  # simple random crop
-    ######
-    # Claimed to be used in DeiT, but actually only employed if training in distributed way
-    # (i.e. not for most of our runs)  --> Their default (hardcoded) is '3';
     group.add_argument('--aug_repeats', type=float, default=0,
                        help='Number of augmentation repetitions (distributed training only) (default: 0)')
     ######
