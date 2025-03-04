@@ -4,6 +4,7 @@ Official PyTorch implementation of the paper **Perceiving Longer Sequences With 
 :mortar_board: :page_facing_up: Find our paper: [[arXiv]](https://arxiv.org/pdf/2402.12138) &nbsp; [[NeurIPS]](https://proceedings.neurips.cc/paper_files/paper/2024/hash/ab1ee157f7804a13f980414b644a9460-Abstract-Conference.html) &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp; :milky_way: :chart_with_upwards_trend: [[Poster]](.github/Hiller_Poster_BiXT_NeurIPS2024_s.png) &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp; :mailbox_with_mail: Reference: [[BibTeX]](https://github.com/mrkshllr/BiXT#citing-bixt)
 
 ## Note :pencil: 
+- :hourglass_flowing_sand: **Preliminary** code release -- Detailed ***'How To'*** coming soon! :point_left: :eyes:
 - :hourglass_flowing_sand: **Trained models coming VERY soon!** :hourglass_flowing_sand: :computer:
 
 ## Updates :tada:
