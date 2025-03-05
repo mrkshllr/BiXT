@@ -25,7 +25,7 @@ Official PyTorch implementation of the paper **Perceiving Longer Sequences With 
 ---
 
 ## Installation and Datasets
-For detailed instruction how to set up your environment, install required packages and get access to the ImageNet dataset, please refer to the [installation instructions](https://github.com/mrkshllr/FewTURE/blob/main/INSTALL.md).
+For detailed instruction how to set up your environment, install required packages and get access to the ImageNet dataset, please refer to the [installation instructions](https://github.com/mrkshllr/BiXT/blob/main/INSTALL.md).
 
 ##Training BiXT from scratch
 For a glimpse at the documentation of all arguments that can be adjusted for training, you can run the following command  
