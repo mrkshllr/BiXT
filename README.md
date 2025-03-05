@@ -1,7 +1,9 @@
 # BiXT - Perceiving Longer Sequences With Bi-Directional Cross-Attention Transformers 
 Official PyTorch implementation of the paper **Perceiving Longer Sequences With Bi-Directional Cross-Attention Transformers** (NeurIPS 2024).
+<div align="center">
 
 :mortar_board: :page_facing_up: Find our paper: [[arXiv]](https://arxiv.org/pdf/2402.12138) &nbsp; [[NeurIPS]](https://proceedings.neurips.cc/paper_files/paper/2024/hash/ab1ee157f7804a13f980414b644a9460-Abstract-Conference.html) &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp; :milky_way: :chart_with_upwards_trend: [[Poster]](.github/Hiller_Poster_BiXT_NeurIPS2024_s.png) &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp; :mailbox_with_mail: Reference: [[BibTeX]](https://github.com/mrkshllr/BiXT#citing-bixt)
+</div>
 
 ## Note :pencil: 
 - :hourglass_flowing_sand: **Preliminary** code release -- Detailed ***'How To'*** coming soon! :point_left: :eyes:
@@ -20,7 +22,22 @@ Official PyTorch implementation of the paper **Perceiving Longer Sequences With 
 
 **BiXT** is a novel bi-directional Transformer architecture which scales linearly with input size in terms of computational cost and memory consumption, but does not suffer the drop in performance or limitation to only one input modality seen with other efficient Transformer-based approaches. BiXT is inspired by the Perceiver architectures but replaces iterative attention with an efficient bi-directional cross-attention module in which input tokens and latent variables attend to each other simultaneously, leveraging a naturally emerging attention-symmetry between the two. This approach unlocks a key bottleneck experienced by Perceiver-like architectures and enables the processing and interpretation of both semantics ('what') and location ('where') to develop alongside each other over multiple layers -- allowing its direct application to dense and instance-based tasks alike. By combining efficiency with the generality and performance of a full Transformer architecture, BiXT can process longer sequences like point clouds, text or images at higher feature resolutions and achieves competitive performance across a range of tasks like point cloud part segmentation, semantic image segmentation, image classification, hierarchical sequence modeling and document retrieval. Our experiments demonstrate that BiXT models outperform larger competitors by leveraging longer sequences more efficiently on vision tasks like classification and segmentation, and perform on par with full Transformer variants on sequence modeling and document retrieval -- but require 28% fewer FLOPs and are up to 8.4x faster.
 
+---
 
+## Installation and Datasets
+For detailed instruction how to set up your environment, install required packages and get access to the ImageNet dataset, please refer to the [installation instructions](https://github.com/mrkshllr/FewTURE/blob/main/INSTALL.md).
+
+##Training BiXT from scratch
+For a glimpse at the documentation of all arguments that can be adjusted for training, you can run the following command  
+```
+python train_BiXT.py --help
+```
+
+>> More details to come soon! For now, check out the [experiment scripts](experiment_scripts).
+
+&nbsp;
+
+---
 ## Citing BiXT
 If you find this repository useful, please consider giving us a star :star: and cite our [work](https://arxiv.org/pdf/2402.12138):
 ```
@@ -37,4 +54,4 @@ If you find this repository useful, please consider giving us a star :star: and 
 If you have any questions regarding our work, please feel free to reach out!
 
 ---
-For alternative implementations, also check out [lucidrains' version](https://github.com/lucidrains/bidirectional-cross-attention) (also in PyTorch) and [axrwl's project](https://github.com/axrwl/bidirectional-cross-attention) for a JAX variant.
+For alternative implementations, please also check out [lucidrains' version](https://github.com/lucidrains/bidirectional-cross-attention) (also in PyTorch) and [axrwl's project](https://github.com/axrwl/bidirectional-cross-attention) for a JAX variant.
