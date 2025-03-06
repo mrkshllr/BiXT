@@ -1,0 +1,15 @@
+# Can be used to create the environment via "conda env create -f env.yml
+name: bixt_env
+channels:
+  - defaults
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.8.18
+  - pytorch=2.0.1
+  - pytorch-cuda=11.8
+  - torchvision=0.15.2
+  - pyyaml
+  - yaml
+  - wandb

@@ -1,0 +1,14 @@
+# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file> -c pytorch -c nvidia -c conda-forge
+# platform: linux-64
+#
+#
+python=3.8.18
+pytorch=2.0.1
+pytorch-cuda=11.8
+torchvision=0.15.2
+yaml
+pyyaml
+
+# optional
+wandb
