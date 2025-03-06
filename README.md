@@ -11,6 +11,7 @@ Official PyTorch implementation of the paper **Perceiving Longer Sequences With 
 - :hourglass_flowing_sand: **Trained models coming VERY soon!** :hourglass_flowing_sand: :computer:
 
 ## Updates :tada:
+- March 06, 2025: Extended Readme: Details on Training, Finetuning and Evaluation procedures :books: :nerd_face: 
 - March 04, 2025: *Cleaned-up* **Model, Training and Evaluation code now available** (for ImageNet) :star2: :computer:
 - December 13, 2024: **BiXT presented at NeurIPS 2024 in Vancouver, Canada** :mount_fuji: :snowflake:
 - September 26, 2024: **BiXT is accepted at NeurIPS 2024!** :fire: 
@@ -33,11 +34,55 @@ For a glimpse at the documentation of all arguments that can be adjusted for tra
 ```
 python3 train_BiXT.py --help
 ```
+This will display all arguments that can be passed to the training file. 
 
->> More details to come soon! For now, check out the [experiment scripts](experiment_scripts).
+:robot: :thought_balloon: For a list of all models that are currently implemented, take a look at the [BiXT model file](https://github.com/mrkshllr/BiXT/blob/main/timm/models/bixt.py#L51) for our default versions, and at the [BiXT-convtok model file](https://github.com/mrkshllr/BiXT/blob/main/timm/models/bixt_convtok.py#L51) for variants using a convolutional tokeniser (used mainly for ablations).
+
+To make things easier, we provide a set of examples how to train BiXT models in the form of bash scripts in the [experiments_scripts](experiment_scripts) folder, together with a list of our default hyperparameter choices passed as arguments.
+
+Please make sure to define the following environment variables accordingly (part of the provided scripts):
+
+* `$DATAPATH`: path to your ImageNet dataset (e.g. /mnt/datasets/ILSVRC2012)
+* `$OUTPUT_DIR`: path to directory where model checkpoints and other logging data shall be stored (e.g. /mnt/bixt_checkpoints). Each run creates a hash-subdirectory based on the provided arguments for the experiment to avoid unintended overwriting of data. 
+
+For example, to train our BiXT-Ti/16 model with 64 latents on 224x224 images using 1 GPU, you can use [this script](experiment_scripts/train_bixt_ti_l64_p16/bixt_ep800_1gpu.sh), which internally calls
+```
+python3 train_BiXT.py --torchcompile inductor --model bixt_ti_l64_p16 --seed 42 --lr 2.5e-3 --sa_drop_path 0.00 --ca_drop_path 0.00 --workers 6 --warmup_lr 1e-6 --data_path $DATAPATH --batch_size_per_gpu 1024 --epochs 800 --weight_decay 0.05 --sched cosine --reprob 0.0 --smoothing 0.0 --warmup_epochs 5 --drop 0.0 --opt lambc --mixup .8 --cutmix 1.0 --bce_loss --color_jitter 0.3 --three_augment --output_dir $OUTPUT_DIR
+```
+
+Distributing the training across multiple GPUs works in the same manner as shown in [this script](experiment_scripts/train_bixt_ti_l64_p16/bixt_ep800_2gpus.sh). For 2 GPUs, this results in calling
+```
+torchrun --nproc_per_node=2 --rdzv-endpoint=$MASTER_ADDR:$MASTER_PORT train_BiXT.py --torchcompile inductor --model bixt_ti_l64_p16 --seed 42 --lr 2.5e-3 --sa_drop_path 0.00 --ca_drop_path 0.00 --workers 6 --warmup_lr 1e-6 --data_path $DATAPATH --batch_size_per_gpu 512 --epochs 800 --weight_decay 0.05 --sched cosine --reprob 0.0 --smoothing 0.0 --warmup_epochs 5 --drop 0.0 --opt lambc --mixup .8 --cutmix 1.0 --bce_loss --color_jitter 0.3 --three_augment --output_dir $OUTPUT_DIR
+```
+The `rdzv-endpoint` for the communication can be set by defining `$MASTER_ADDR` and `$MASTER_PORT` (not necessary if only running one experiment on the server at a time).
+
+&nbsp;
+> [!NOTE]  
+> Note that we used a **total batch-size** of 1024 images for training all our BiXT models.  
+> This must be adjusted accordingly for single/multi-GPU setups, as demonstrated in our scripts:  
+> We use a `batch_size_per_gpu=1024` for training on 1GPU, a `batch_size_per_gpu=512` for training on 2GPUs, etc.   
+> In case your GPU cannot fit the desired batch-size, you can use the `grad_accum_steps` to compute the gradients sequentially and aggregate, before backprop.
 
 &nbsp;
 
+## Finetuning BiXT models
+We use the same training script to finetune models trained on 224x224 images on the larger resolution 384x384.
+
+For ease of use, we define separate models that are automatically initialised with the weights of the model pretrained on the smaller resolution, see [here](https://github.com/mrkshllr/BiXT/blob/main/timm/models/bixt.py#L75) (e.g. `bixt_ti_t64_p16_ft384`).  
+To automatically load the correct weights, the path to the respective model checkpoint needs to be added to the [model definition](https://github.com/mrkshllr/BiXT/blob/main/timm/models/bixt.py#L75) as:
+```
+'bixt_ti_l64_p16_ft384': _cfg_384(file='<Path_to_pretrained_model>/model_best.pth.tar')
+```
+
+Finetuning can then be started akin to training, either via the provided [finetuning scripts](experiment_scripts/train_bixt_ti_l64_p16_ft384) or by passing the appropriate arguments to 
+```
+python3 train_BiXT.py --model bixt_ti_l64_p16_ft384_e800 --input_size 3 384 384 --pretrained --seed 42 --lr 2.5e-5 --sa_drop_path 0.05 --ca_drop_path 0.05 --workers 6 --torchcompile inductor --data_path $DATAPATH --batch_size_per_gpu 512 --epochs 30 --weight_decay 0.05 --sched cosine --reprob 0.0 --smoothing 0.0 --warmup_epochs 0 --drop 0.0 --opt lambc --mixup .8 --cutmix 1.0 --bce_loss --color_jitter 0.3 --three_augment --output_dir $OUTPUT_DIR
+```
+Make sure to pass the correct `model` name, `input_size` and `pretrained` flag as shown above. 
+> [!NOTE]  
+> In contrast to training, we used a **total batch-size** of 512 images for our finetuning experiments, as well as a smaller learning rate and no warmup steps (see hyperparameters above).
+
+&nbsp;
 ## Evaluating BiXT models
 To evaluate a trained BiXT model (here `bixt_ti_l64_p16`) on the ImageNet dataset, you can use the evaluation scripts provided in 
 ```
@@ -57,6 +102,10 @@ You can also provide your wandb key, user and project name to upload the evaluat
 &nbsp;
 
 ---
+## License
+This repository is released under the Apache 2.0 license as found in the [LICENSE](https://github.com/mrkshllr/BiXT/blob/main/LICENSE) file.
+
+---
 ## Citing BiXT
 If you find this repository useful, please consider giving us a star :star: and cite our [work](https://arxiv.org/pdf/2402.12138):
 ```
@@ -70,7 +119,7 @@ If you find this repository useful, please consider giving us a star :star: and 
     year={2024},
 }
 ```
-If you have any questions regarding our work, please feel free to reach out!
+:point_right: If you have any questions regarding our work, please feel free to reach out! :email: 
 
 ---
 For alternative implementations, please also check out [lucidrains' version](https://github.com/lucidrains/bidirectional-cross-attention) (also in PyTorch) and [axrwl's project](https://github.com/axrwl/bidirectional-cross-attention) for a JAX variant.

@@ -184,8 +184,8 @@ def get_args_parser():
                        help='warmup learning rate (default: 1e-5)')
     group.add_argument('--min_lr', type=float, default=1e-5, metavar='LR',
                        help='lower lr bound for cyclic schedulers that hit 0 (default: 1e-5)')
-    group.add_argument('--epochs', type=int, default=300, metavar='N',
-                       help='number of epochs to train (default: 300)')
+    group.add_argument('--epochs', type=int, default=800, metavar='N',
+                       help='number of epochs to train (default: 800)')
     group.add_argument('--start_epoch', default=None, type=int, metavar='N',
                        help='manual epoch number (useful on restarts) - NOTE that this will overwrite the resume '
                             'epoch that can be aquired from the checkpoint!')
