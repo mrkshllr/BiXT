@@ -8,10 +8,11 @@ python 3.8.18, PyTorch 2.0.1, CUDA 11.8 and torchvision 0.15.2 with the use of a
 While we have not (yet) actively tested newer variants of PyTorch and CUDA, we expect these to work in the same way and not cause any major issues. 
 If you encounter any, please reach out!
 
-**NOTE**: While we make use of parts of the [timm](https://huggingface.co/docs/timm/index) library, we provide a **modified and extended** version [here](timm) as part of this repository. 
+> [!IMPORTANT]  
+> While we make use of parts of the [timm](https://huggingface.co/docs/timm/index) library, we provide a **modified and extended** version [here](timm) as part of this repository. 
 Therefore, please do **not** install timm within your environment, as this will likely interfere with the provided files.
 
-To create an appropriate conda environment (after you have successfully installed conda), run the following command:
+To create an appropriate conda environment (after you have successfully downloaded and set up conda), run the following command:
 ```
 conda env create -f reqsenv.yml
 ```
@@ -19,13 +20,13 @@ Or, if this doesn't work, try:
 ```
 conda create --name bixt_env --file requirements.txt -c pytorch -c nvidia -c conda-forge
 ```
-If this doesn't work either, simply create an empty environment and install them manually:
+If this doesn't work either, simply create an empty environment and install the packages manually:
 ```
 conda create --name bixt_env python=3.8.18
 conda install pytorch==2.0.1 torchvision==0.15.2 pytorch-cuda=11.8 -c pytorch -c nvidia
 conda install yaml pyyaml
 ```
-You can also simply take a look at the packages and install them manually into your environment -- just make sure you NOT already have timm installed.
+If you use a previously created environment, please make sure that you do NOT already have timm installed.
 
 &nbsp;
 
