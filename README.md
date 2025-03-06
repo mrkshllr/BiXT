@@ -30,10 +30,28 @@ For detailed instruction how to set up your environment, install required packag
 ##Training BiXT from scratch
 For a glimpse at the documentation of all arguments that can be adjusted for training, you can run the following command  
 ```
-python train_BiXT.py --help
+python3 train_BiXT.py --help
 ```
 
 >> More details to come soon! For now, check out the [experiment scripts](experiment_scripts).
+
+&nbsp;
+
+## Evaluating BiXT models
+To evaluate a trained BiXT model (here `bixt_ti_l64_p16`) on the ImageNet dataset, you can use the evaluation scripts provided in 
+```
+./experiment_scripts/Eval_bixt_ti_l64_p16/
+```
+Make sure to define or replace:
+* `$DATAPATH`: path to your ImageNet dataset (e.g. /mnt/datasets/ILSVRC2012)
+* `$MODEL_CHECKPOINT`: checkpoint of the trained model to be evaluated (e.g. /mnt/bixt_checkpoints/model_best.pth)
+
+The script then runs the evaluation procedure using:
+```
+python3 evaluate_BiXT.py --model bixt_ti_l64_p16 --model_checkpoint $MODEL_CHECKPOINT --workers 6 --data_path $DATAPATH --validation_batch_size 1024
+```
+
+You can also provide your wandb key, user and project name to upload the evaluation results (Acc@1, Acc@5 and Loss) to wandb.
 
 &nbsp;
 
