@@ -41,7 +41,7 @@ python3 train_BiXT.py --help
 ## Evaluating BiXT models
 To evaluate a trained BiXT model (here `bixt_ti_l64_p16`) on the ImageNet dataset, you can use the evaluation scripts provided in 
 ```
-./experiment_scripts/Eval_bixt_ti_l64_p16/
+./experiment_scripts/eval_bixt_ti_l64_p16/
 ```
 Make sure to define or replace:
 * `$DATAPATH`: path to your ImageNet dataset (e.g. /mnt/datasets/ILSVRC2012)
