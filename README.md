@@ -36,7 +36,8 @@ python3 train_BiXT.py --help
 ```
 This will display all arguments that can be passed to the training file. 
 
-:robot: :thought_balloon: For a list of all models that are currently implemented, take a look at the [BiXT model file](https://github.com/mrkshllr/BiXT/blob/main/timm/models/bixt.py#L51) for our default versions, and at the [BiXT-convtok model file](https://github.com/mrkshllr/BiXT/blob/main/timm/models/bixt_convtok.py#L51) for variants using a convolutional tokeniser (used mainly for ablations).
+> [!TIP]  
+> :robot: :thought_balloon: For a list of all models that are currently implemented, take a look at the [BiXT model file](https://github.com/mrkshllr/BiXT/blob/main/timm/models/bixt.py#L51) for our default versions, and at the [BiXT-convtok model file](https://github.com/mrkshllr/BiXT/blob/main/timm/models/bixt_convtok.py#L51) for variants using a convolutional tokeniser (used mainly for ablations).
 
 To make things easier, we provide a set of examples how to train BiXT models in the form of bash scripts in the [experiments_scripts](experiment_scripts) folder, together with a list of our default hyperparameter choices passed as arguments.
 
