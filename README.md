@@ -26,7 +26,7 @@ Official PyTorch implementation of the paper **Perceiving Longer Sequences With 
 ---
 
 ## Installation and Datasets
-For detailed instruction how to set up your environment, install required packages and get access to the ImageNet dataset, please refer to the [installation instructions](https://github.com/mrkshllr/BiXT/blob/main/INSTALL.md).
+For detailed instructions how to set up your environment, install required packages and get access to the ImageNet dataset, please refer to the [installation instructions](https://github.com/mrkshllr/BiXT/blob/main/INSTALL.md).
 
 
 ## Training BiXT from scratch
@@ -70,18 +70,18 @@ The `rdzv-endpoint` for the communication can be set by defining `$MASTER_ADDR` 
 We use the same training script to finetune models trained on 224x224 images on the larger resolution 384x384.
 
 For ease of use, we define separate models that are automatically initialised with the weights of the model pretrained on the smaller resolution, see [here](https://github.com/mrkshllr/BiXT/blob/main/timm/models/bixt.py#L75) (e.g. `bixt_ti_t64_p16_ft384`).  
-To automatically load the correct weights, the path to the respective model checkpoint needs to be added to the [model definition](https://github.com/mrkshllr/BiXT/blob/main/timm/models/bixt.py#L75) as:
+To automatically load the correct weights, the path to the respective model checkpoint needs to be added to the [model definition](https://github.com/mrkshllr/BiXT/blob/main/timm/models/bixt.py#L75) as `file='<checkpoint_path>'` configuration argument:
 ```
 'bixt_ti_l64_p16_ft384': _cfg_384(file='<Path_to_pretrained_model>/model_best.pth.tar')
 ```
 
 Finetuning can then be started akin to training, either via the provided [finetuning scripts](experiment_scripts/train_bixt_ti_l64_p16_ft384) or by passing the appropriate arguments to 
 ```
-python3 train_BiXT.py --model bixt_ti_l64_p16_ft384_e800 --input_size 3 384 384 --pretrained --seed 42 --lr 2.5e-5 --sa_drop_path 0.05 --ca_drop_path 0.05 --workers 6 --torchcompile inductor --data_path $DATAPATH --batch_size_per_gpu 512 --epochs 30 --weight_decay 0.05 --sched cosine --reprob 0.0 --smoothing 0.0 --warmup_epochs 0 --drop 0.0 --opt lambc --mixup .8 --cutmix 1.0 --bce_loss --color_jitter 0.3 --three_augment --output_dir $OUTPUT_DIR
+python3 train_BiXT.py --model bixt_ti_l64_p16_ft384 --input_size 3 384 384 --pretrained --seed 42 --lr 2.5e-5 --sa_drop_path 0.05 --ca_drop_path 0.05 --workers 6 --torchcompile inductor --data_path $DATAPATH --batch_size_per_gpu 512 --epochs 30 --weight_decay 0.05 --sched cosine --reprob 0.0 --smoothing 0.0 --warmup_epochs 0 --drop 0.0 --opt lambc --mixup .8 --cutmix 1.0 --bce_loss --color_jitter 0.3 --three_augment --output_dir $OUTPUT_DIR
 ```
 Make sure to pass the correct `model` name, `input_size` and `pretrained` flag as shown above. 
 > [!NOTE]  
-> In contrast to training, we used a **total batch-size** of 512 images for our finetuning experiments, as well as a smaller learning rate and no warmup steps (see hyperparameters above).
+> In contrast to training from scratch, we used a **total batch-size** of 512 images for our finetuning experiments presented in the paper, as well as a smaller learning rate and no warmup steps (see hyperparameters above).
 
 &nbsp;
 ## Evaluating BiXT models
@@ -101,6 +101,15 @@ python3 evaluate_BiXT.py --model bixt_ti_l64_p16 --model_checkpoint $MODEL_CHECK
 You can also provide your wandb key, user and project name to upload the evaluation results (Acc@1, Acc@5 and Loss) to wandb.
 
 &nbsp;
+
+## Using BiXT for Dense Downstream Tasks
+In the paper, we also presented results on a variety of dense downstream applications, such as semantic segmentation where a model pretrained on ImageNet is then finetuned on a task-specific dataset like ADE20K.
+
+Note that for standard ImageNet training, we simply use a standard classification loss on the average-pooled latent embeddings for training. This means that for a 12 layer BiXT network, the refined patch tokens only receive a gradient until layer 11 -- which is why we employ only a *one-sided cross-attention* for the last layer (see BiXT model file [here](https://github.com/mrkshllr/BiXT/blob/main/timm/models/bixt.py#L171)).
+
+For simplicity and easy transfer to dense downstream tasks, we therefore simply create and train BiXT-models with a depth of 13 and train these on ImageNet (see [here](https://github.com/mrkshllr/BiXT/blob/main/timm/models/bixt.py#L58)); Afterwards, the last one-sided cross-attention that exclusively refines the latent vectors is simply discarded and the remaining (fully-trained) 12-layer network is used for finetuning on downstream tasks. 
+
+Note: It is, of course, entirely possible to replace or extend our simple classification loss on the averaged latent vectors through other token-side losses (e.g. Masked Image Modelling) to provide a gradient signal for the token side and thereby directly train both, the latent and token refinement for all layers.
 
 ---
 ## License
