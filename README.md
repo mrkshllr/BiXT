@@ -5,12 +5,13 @@ Official PyTorch implementation of the paper **Perceiving Longer Sequences With 
 :mortar_board: :page_facing_up: Find our paper: [[arXiv]](https://arxiv.org/pdf/2402.12138) &nbsp; [[NeurIPS]](https://proceedings.neurips.cc/paper_files/paper/2024/hash/ab1ee157f7804a13f980414b644a9460-Abstract-Conference.html) &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp; :milky_way: :chart_with_upwards_trend: [[Poster]](.github/Hiller_Poster_BiXT_NeurIPS2024_s.png) &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp; :mailbox_with_mail: Reference: [[BibTeX]](https://github.com/mrkshllr/BiXT#citing-bixt)
 </div>
 
-## Note :pencil: 
-- :hourglass_flowing_sand: **Preliminary** code release -- Detailed ***'How To'*** coming soon! :point_left: :eyes:
-- :arrow_right: BiXT architecture implemented [here!](timm/models/bixt.py) :bookmark: :point_left:
-- :hourglass_flowing_sand: **Trained models coming VERY soon!** :hourglass_flowing_sand: :computer:
+## Note :pencil:
+- :arrow_right: **BiXT architecture** implemented [here!](timm/models/bixt.py) :bookmark: :point_left:
+- :arrow_right: **Trained models** available [here!](https://github.com/mrkshllr/BiXT/blob/main/MODEL_WEIGHTS.md) :point_left: :computer:
+- :arrow_right: Alternative BiXT architecture with conv-tokeniser implemented [here!](timm/models/bixt_convtok.py) :bookmark: :point_left:
 
 ## Updates :tada:
+- March 10, 2025: **BiXT model weights** available; (pre-) trained on ImageNet1K, including d13-backbones for dense downstream tasks
 - March 06, 2025: Extended Readme: Details on Training, Finetuning and Evaluation procedures :books: :nerd_face: 
 - March 04, 2025: *Cleaned-up* **Model, Training and Evaluation code now available** (for ImageNet) :star2: :computer:
 - December 13, 2024: **BiXT presented at NeurIPS 2024 in Vancouver, Canada** :mount_fuji: :snowflake:
