@@ -65,6 +65,9 @@ The `rdzv-endpoint` for the communication can be set by defining `$MASTER_ADDR` 
 > We use a `batch_size_per_gpu=1024` for training on 1GPU, a `batch_size_per_gpu=512` for training on 2GPUs, etc.   
 > In case your GPU cannot fit the desired batch-size, you can use the `grad_accum_steps` to compute the gradients sequentially and aggregate, before backprop.
 
+###Available weights of trained BiXT models
+More insights regarding obtained ImageNet validation accuracies (top1 and top5), as well as the model weights are available [here](https://github.com/mrkshllr/BiXT/blob/main/MODEL_WEIGHTS.md#default-bixt-tiny-models).
+
 &nbsp;
 
 ## Finetuning BiXT models
@@ -83,10 +86,13 @@ python3 train_BiXT.py --model bixt_ti_l64_p16_ft384 --input_size 3 384 384 --pre
 Make sure to pass the correct `model` name, `input_size` and `pretrained` flag as shown above. 
 > [!NOTE]  
 > In contrast to training from scratch, we used a **total batch-size** of 512 images for our finetuning experiments presented in the paper, as well as a smaller learning rate and no warmup steps (see hyperparameters above).
+###Available weights of finetuned BiXT models
+More insights regarding obtained ImageNet validation accuracies (top1 and top5), as well as the model weights are available [here](https://github.com/mrkshllr/BiXT/blob/main/MODEL_WEIGHTS.md#fine-tuned-bixt-tiny-models).
+
 
 &nbsp;
 ## Evaluating BiXT models
-To evaluate a trained BiXT model (here `bixt_ti_l64_p16`) on the ImageNet dataset, you can use the evaluation scripts provided in 
+To evaluate a [trained](https://github.com/mrkshllr/BiXT/blob/main/MODEL_WEIGHTS.md) BiXT model (here `bixt_ti_l64_p16`) on the ImageNet dataset, you can use the evaluation scripts provided in 
 ```
 ./experiment_scripts/eval_bixt_ti_l64_p16/
 ```
@@ -111,6 +117,9 @@ Note that for standard ImageNet training, we simply use a standard classificatio
 For simplicity and easy transfer to dense downstream tasks, we therefore simply create and train BiXT-models with a depth of 13 and train these on ImageNet (see [here](https://github.com/mrkshllr/BiXT/blob/main/timm/models/bixt.py#L58)); Afterwards, the last one-sided cross-attention that exclusively refines the latent vectors is simply discarded and the remaining (fully-trained) 12-layer network is used for finetuning on downstream tasks. 
 
 Note: It is, of course, entirely possible to replace or extend our simple classification loss on the averaged latent vectors through other token-side losses (e.g. Masked Image Modelling) to provide a gradient signal for the token side and thereby directly train both, the latent and token refinement for all layers.
+###Available weights of pretrained dense 'backbone' BiXT models
+More insights regarding obtained ImageNet validation accuracies (top1 and top5), as well as the model weights are available [here](https://github.com/mrkshllr/BiXT/blob/main/MODEL_WEIGHTS.md#bixt-model-weights-for-dense-downstream-tasks).
+
 
 ---
 ## License

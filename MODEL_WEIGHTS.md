@@ -49,6 +49,8 @@ Mainly used to gain insights regarding scaling, including smaller patch size (8)
 | BiXT-d256/16       |      bixt_ed256_l64_p16       |  **81.74**  | **95.37** | [zip-file](https://figshare.unimelb.edu.au/ndownloader/files/52882976) |
 | BiXT-d256/8        |    bixt_ed256LS_l64_p16s8*    |  **83.24**  | **96.17** | [zip-file](https://figshare.unimelb.edu.au/ndownloader/files/52882991) |
 | BiXT-d256/8-ft384  | bixt_ed256LS_l64_p16s8_ft384* | **83.89**   | **96.58** | [zip-file](https://figshare.unimelb.edu.au/ndownloader/files/52882985) |
+
+*these two models use layer-scale for improved stabilty in training.
 &nbsp;  
 
 ---
